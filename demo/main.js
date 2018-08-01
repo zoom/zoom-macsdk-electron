@@ -4,20 +4,11 @@
 const electron = require('electron');
 
 var ZOOMSDKMOD = require("../lib/zoom_sdk.js")
-/*windows
-var initoptions4={
-  path:'../lib/node_modules/zoomsdk/build/Release/',
-  apicallretcb:apicallresultcb,
-  threadsafemode:0,
-  ostype:ZOOMSDKMOD.ZOOM_TYPE_OS_TYPE.WIN_OS,
-}
-*/
-
-//mac initoption
 var initoptions={
-    path:'',
+    path:'../lib/node_modules/zoomsdk/build/Release/',
+    apicallretcb:apicallresultcb,
     threadsafemode:0,
-    ostype:ZOOMSDKMOD.ZOOM_TYPE_OS_TYPE.MAC_OS,
+    ostype:ZOOMSDKMOD.ZOOM_TYPE_OS_TYPE.WIN_OS,
 }
 const zoomsdk = ZOOMSDKMOD.ZoomSDK.getInstance(initoptions)
 var zoomauth = null
@@ -25,8 +16,6 @@ var zoommeeting = null
 var zoomaudio = null
 var zoomvideo = null
 var zoomshare = null
-var zoomannotation = null
-var zoomuicontroller = null
 var mymeetinguserid = 0
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
@@ -180,7 +169,6 @@ function apicallresultcb(apiname, ret){
 function sdkauthCB(status){
   if (ZOOMSDKMOD.ZOOMAUTHMOD.ZoomAuthResult.AUTHRET_SUCCESS == status){
     var opts = {
-      ostype:ZOOMSDKMOD.ZOOM_TYPE_OS_TYPE.MAC_OS,
       meetingstatuscb:meetingstatuscb,
       meetinguserjoincb:meetinguserjoincb,
       meetinguserleftcb:meetinguserleftcb,
@@ -199,9 +187,7 @@ function sdkauthCB(status){
     zoomvideo = zoommeeting.GetMeetingVideo(optsvideo)
 
     zoomshare = zoommeeting.GetMeetingShare()
-    
-    zoomannotation = zoommeeting.GetAnnotationCtrl()
-    zoomuicontroller = zoommeeting.GetMeetingUICtrl()
+
     showLoginWindow();
   }
   else {
@@ -268,9 +254,8 @@ function meetingstatuscb(status, errorcode) {
       showWaitingWindow();
     break;
     case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_INMEETING:
-    case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_AUDIO_READY:
       showInMeetingWindow();
-    break;
+    break
     case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_FAILED:
     case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_ENDED:
     /*
@@ -343,220 +328,6 @@ function leave(endMeeting){
    zoommeeting.LeaveMeeting(opt);
 }
 
-function mute(userid)
-{
-  var opts = {
-    userid: userid,
-    allowunmutebyself: 'false'
-  }
-  
-  zoomaudio.MeetingAudio_MuteAudio(opts)
-}
-
-function unmute(userid)
-{
-  var opts = {
-    userid: userid,
-  }
-  zoomaudio.MeetingAudio_UnMuteAudio(opts)
-}
-
-function joinVoip()
-{
-  var opts = {}
-  zoomaudio.MeetingAudio_JoinVoip(opts)
-}
-
-function leaveVoip()
-{
-  var opts = {}
-  zoomaudio.MeetingAudio_LeaveVoip(opts)
-}
-
-function muteVideo()
-{
-   var opts = {}
-  zoomvideo.MeetingVideo_MuteVideo(opts)
-}
-
-function unmuteVideo()
-{
-   var opts = {}
-  zoomvideo.MeetingVideo_UnMuteVideo(opts)
-}
-
-function shareApp(apphandle)
-{
-  var opts={
-   apphandle:apphandle
-  }
-  zoomshare.MeetingShare_StartAppShare(opts)
-}
-
-function shareDesktop(monitorid)
-{
-  var opts={
-   monitorid:monitorid
-  }
-  zoomshare.MeetingShare_StartMonitorShare(opts)
-}
-
-function stopShare(){
-  var opts={}
-  zoomshare.MeetingShare_StopShare(opts)
-}
-
-function setTool(viewtype, tooltype)
-{
-  var opts ={
-    viewtype: viewtype,
-    type:tooltype
-  }
-  zoomannotation.Annotaion_SetTool(opts)
-}
-
-function setClear(viewtype, cleartype)
-{
-  var opts ={
-    viewtype: viewtype,
-    type:cleartype
-  }
-  zoomannotation.Annotaion_Clear(opts)
-}
-
-function undo(viewtype)
-{
-  var opts ={
-    viewtype: viewtype,
-  }
-  zoomannotation.Annotaion_Undo(opts)
-}
-
-function redo(viewtype)
-{
-  var opts ={
-    viewtype: viewtype,
-  }
-  zoomannotation.Annotaion_Redo(opts)
-}
-
-function startAnnotation(viewtype, left, top)
-{
-  var opts ={
-    viewtype: viewtype,
-    left:left,
-    top: top,
-  }
-  zoomannotation.Annotaion_StartAnnotation(opts)
-}
-
-function stopAnnotation(viewtype)
-{
-  zoomannotation.Annotaion_StopAnnotation(viewtype)
-}
-
-function showAudio(show)
-{
-  if(show)
-    zoomuicontroller.MeetingUI_ShowJoinAudioDlg()
-  else
-    zoomuicontroller.MeetingUI_HideJoinAudioDlg()
-}
-
-function showChat(show)
-{
-  var opts ={
-    left: 200,
-    top: 200
-  }
-  if(show)
-    zoomuicontroller.MeetingUI_ShowChatDlg(opts)
-  else
-    zoomuicontroller.MeetingUI_HideChatDlg()
-}
-
-function showPlist(show)
-{
-  var opts ={
-    show:show
-  }
-  zoomuicontroller.MeetingUI_ShowParticipantsListWnd(opts)
-
-}
-
-function showToolbar(show)
-{
-  var opts ={
-    show:show
-  }
-  zoomuicontroller.MeetingUI_ShowBottomFloatToolbarWnd(opts)
-}
-
-function showFitbar(show)
-{
-  var opts ={
-    show:show
-  }
-  zoomuicontroller.MeetingUI_ShowSharingToolbar(opts)
-}
-
-function enterFullscreen(show)
-{
-  var opts ={
-    bFirstView: 1,
-    bSecView:0
-  }
-  if(show)
-  {
-    zoomuicontroller.MeetingUI_EnterFullScreen(opts)
-  }else{
-    zoomuicontroller.MeetingUI_ExitFullScreen(opts)
-  }
-}
-
-function switchToWall()
-{
-  zoomuicontroller.MeetingUI_SwitchToVideoWall()
-}
-
-function switchToActive()
-{
-  zoomuicontroller.MeetingUI_SwtichToAcitveSpeaker()
-}
-
-function switchFloatToActive()
-{
-  zoomuicontroller.MeetingUI_SwitchFloatVideoToActiveSpkMod()
-}
-
-function switchFloatToGallery()
-{
-  zoomuicontroller.MeetingUI_SwitchFloatVideoToGalleryMod()
-}
-
-function switchFloatToActive()
-{
-  zoomuicontroller.MeetingUI_SwitchFloatVideoToActiveSpkMod()
-}
-
-function changeFloatActiveSpkVideoSize()
-{
-  var opts = {
-    floatvideotype:2
-  }
-  zoomuicontroller.MeetingUI_ChangeFloatActiveSpkVideoSize(opts)
-}
-
-function moveFloatVideo()
-{
-  var opts ={
-    left: 200,
-    top: 200
-  }
-  zoomuicontroller.MeetingUI_MoveFloatVideoWnd(opts)
-}
-
-
 const {ipcMain} = require('electron')
 ipcMain.on('asynchronous-message', (event, arg1, arg2, arg3) => {
   if ('sdkauth' == arg1){
@@ -577,88 +348,6 @@ ipcMain.on('asynchronous-message', (event, arg1, arg2, arg3) => {
   else if ('end' == arg1){
     leave(true)
   }
-  else if ('mute' == arg1){
-    mute(Number(arg2))
-  }
-  else if('unmute'== arg1){
-    unmute(Number(arg2))
-  }
-  else if('joinVoip'== arg1){
-    joinVoip()
-  }
-  else if('leaveVoip'== arg1){
-    leaveVoip()
-  }
-  else if('muteVideo'== arg1){
-    muteVideo()
-  }
-  else if('unmuteVideo'== arg1){
-    unmuteVideo()
-  }
-  else if('shareApp'== arg1){
-    shareApp(Number(arg2))
-  }
-  else if('shareDesktop'== arg1){
-    shareDesktop(Number(arg2))
-  }
-  else if('stopShare'== arg1){
-    stopShare()
-  } 
-  else if('setTool'== arg1){
-    setTool(Number(arg2), Number(arg3))
-  }
-  else if('setClear'== arg1){
-    setClear(Number(arg2), Number(arg3))
-  }
-  else if('undo'== arg1){
-    undo(Number(arg2))
-  }
-  else if('redo'== arg1){
-    redo(Number(arg2))
-  }
-  else if('startAnnotation'== arg1){
-    startAnnotation(Number(arg2), 300, 300)
-  }
-  else if('stopAnnotation'== arg1){
-    stopAnnotation(Number(arg2))
-  }
-  else if('showAudio'== arg1){
-    showAudio(Number(arg2))
-  }
-  else if('showChat'== arg1){
-    showChat(Number(arg2))
-  }
-  else if('showPlist'== arg1){
-    showPlist(Number(arg2))
-  }
-  else if('showToolbar'== arg1){
-    showToolbar(Number(arg2))
-  }
-  else if('showFitbar'== arg1){
-    showFitbar(Number(arg2))
-  }
-  else if('enterFullscreen'== arg1){
-    enterFullscreen(Number(arg2))
-  }
-  else if('switchToWall'== arg1){
-    switchToWall()
-  }
-  else if('switchToActive'== arg1){
-    switchToActive()
-  }
-  else if('switchFloatToActive'== arg1){
-    switchFloatToActive()
-  }
-  else if('switchFloatToGallery'== arg1){
-    switchFloatToGallery()
-  }
-  else if('changeFloatActiveSpkVideoSize'== arg1){
-    changeFloatActiveSpkVideoSize()
-  }
-  else if('moveFloatVideo'== arg1){
-    moveFloatVideo()
-  }
-
 })
 
 app.on('window-all-closed', function () {
@@ -678,17 +367,14 @@ function uiacitoncb(type, msgid, hwnd){
 
 app.on('ready', function () {
   var opts = {
-    webdomain:'https://dev.zoom.us',
+    webdomain:'https://www.zoom.us',
     langid:ZOOMSDKMOD.ZoomSDK_LANGUAGE_ID.LANGUAGE_English,
   }
   var ret = zoomsdk.InitSDK(opts);
   var optMonitorUIAction={
     uiacitonCB:uiacitoncb
   }
-
-  /* windows need do
   zoomsdk.StartMonitorUIAction(optMonitorUIAction)
-  */
   if (0 == initoptions.threadsafemode && ZOOMSDKMOD.ZoomSDKError.SDKERR_SUCCESS == ret){
     ProcSDKReady()
   }

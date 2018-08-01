@@ -58,7 +58,6 @@
  * @param rememberMe: set YES if you want to login automatically next time or NO for not.
  * @return ZoomSDKError the function call synchronously and a callback onZoomSDKLogin in delegate asynchronously.
  */
-
 - (ZoomSDKError)login:(NSString*)userName Password:(NSString*)password RememberMe:(BOOL)rememberMe;
 
 /**
@@ -111,7 +110,6 @@
 - (void)onZoomSDKAuthReturn:(ZoomSDKAuthError)returnValue;
 #endif
 
-
 @optional
 /**
  * @brief Designated for Zoom SDK Login response.
@@ -123,12 +121,14 @@
 #else
 - (void)onZoomSDKLogin:(ZoomSDKLoginStatus)loginStatus failReason:(NSString*)reason;
 #endif
-
-
 /**
  * @brief Designated for Zoom SDK Logout response.
  */
 - (void)onZoomSDKLogout;
 
+/**
+ * @brief Designated for Zoom SDK identity expired, logined user will be forced logout.
+ */
+- (void)onZoomIdentityExpired;
 
 @end

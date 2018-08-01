@@ -9,6 +9,53 @@
 #import <Foundation/Foundation.h>
 #import "ZoomSDKErrors.h"
 
+typedef enum{
+    SettingComponent_AdvancedFeatureButton,
+    SettingComponent_AdvancedFeatureTab,
+}SettingComponent;
+
+
+@interface ZoomSDKAudioStatisticsInfo : NSObject
+{
+    int _frequencySend;
+    int _frequencyReceive;
+    int _latencySend;
+    int _latencyReceive;
+    int _jitterSend;
+    int _jitterReceive;
+    float _packageLossAvgSend;
+    float _packageLossAvgReceive;
+    float _packageLossMaxSend;
+    float _packageLossMaxReceive;
+}
+- (int)getFrequency:(BOOL)isSend;
+- (int)getLatency:(BOOL)isSend;
+- (int)getJitter:(BOOL)isSend;
+- (float)getPackageLoss:(BOOL)isSend Max:(BOOL)isMax;
+@end
+
+@interface ZoomSDKVideoASStatisticsInfo : NSObject
+{
+    int _resolutionSend;
+    int _resolutionReceive;
+    int _fpsSend;
+    int _fpsReceive;
+    int _latencySend;
+    int _latencyReceive;
+    int _jitterSend;
+    int _jitterReceive;
+    float _packageLossAvgSend;
+    float _packageLossAvgReceive;
+    float _packageLossMaxSend;
+    float _packageLossMaxReceive;
+}
+- (int)getLatency:(BOOL)isSend;
+- (int)getJitter:(BOOL)isSend;
+- (float)getPackageLoss:(BOOL)isSend Max:(BOOL)isMax;
+- (int)getResolution:(BOOL)isSend;
+- (int)getFPS:(BOOL)isSend;
+@end
+
 @interface SDKDeviceInfo : NSObject
 {
     NSString* _deviceID;
@@ -51,6 +98,35 @@
  * @return A ZoomSDKError to tell client whether select audio device successfully or not.
  */
 - (ZoomSDKError)selectAudioDevice:(BOOL)mic DeviceID:(NSString *)deviceID DeviceName:(NSString*)deviceName;
+
+/**
+ * @brief This method is used to enable auto join audio by computer.
+ * @param enable, YES means enable NO means disable.
+ * @return A ZoomSDKError to tell client whether enable auto join voip successfully or not.
+ */
+- (ZoomSDKError)enableAutoJoinVoip:(BOOL)enable;
+
+/**
+ * @brief This method is used to enable mute mic when join meeting.
+ * @param enable, YES means enable NO means disable.
+ * @return A ZoomSDKError to tell client whether enable mute mic successfully or not.
+ */
+- (ZoomSDKError)enableMuteMicJoinVoip:(BOOL)enable;
+
+/**
+ * @brief This method is used to Enable Stero in meeting.
+ * @param enable, YES means Enable Stero No means disable.
+ * @return A ZoomSDKError to tell client whether enable stero successfully or not.
+ */
+- (ZoomSDKError)enableStero:(BOOL)enable;
+
+/**
+ * @brief This method is used to Enable using original sound in meeting.
+ * @param enable, YES means enable using original sound No means disable.
+ * @return A ZoomSDKError to tell client whether enable using original sound successfully or not.
+ */
+- (ZoomSDKError)enableUseOriginalSound:(BOOL)enable;
+
 @end
 
 @interface ZoomSDKVideoSetting: NSObject
@@ -93,6 +169,21 @@
  */
 - (ZoomSDKError)enableBeautyFace:(BOOL)enable;
 
+/**
+ * @brief This method is used to disable video when join meeting.
+ * @param disable, YES means video off NO means video on when join meeting.
+ * @return A ZoomSDKError to tell client whether disable video when join meeting successfully or not.
+ */
+- (ZoomSDKError)disableVideoJoinMeeting:(BOOL)disable;
+
+/**
+ * @brief This method is used to display username on their video in meeting.
+ * @param display, YES means always show username on video NO means not.
+ * @return A ZoomSDKError to tell client whether this set action works or not.
+ */
+- (ZoomSDKError)displayUserNameOnVideo:(BOOL)display;
+
+
 @end
 
 @interface ZoomSDKRecordSetting: NSObject
@@ -131,9 +222,50 @@
  * @return A ZoomSDKError to tell client whether function call successfully or not.
  */
 - (ZoomSDKError)setCustomFeedbackURL:(NSString*)feedbackURL;
+
+/**
+ * @brief This method is used to hide some component in setting window.
+ * @param component  a enum specify the control
+ * @param hide set YES to hide NO means show.
+ * @return A ZoomSDKError to tell client whether function call successfully or not.
+ */
+- (void)hideSettingComponent:(SettingComponent)component hide:(BOOL)hide;
+
 @end
 
+@interface ZoomSDKStatisticsSetting: NSObject
+{
+    SettingConnectionType _connectionType;
+    SettingNetworkType    _networkType;
+    NSString*             _proxyAddress;
+}
+/**
+ * @brief This method is used to get Connection Type of current meeting.
+ * @return A connection type Enum.
+ */
+- (SettingConnectionType)getSettingConnectionType;
 
+/**
+ * @brief This method is used to get Network Type of current meeting.
+ * @return A network type Enum.
+ */
+- (SettingNetworkType)getSettingNetworkType;
+/**
+ * @brief This method is used to get the proxy address of current meeting.
+ * @return prxoy address if this meeting use proxy.
+ */
+- (NSString*)getProxyAddress;
+/**
+ * @brief This method is used to get Audio statistics info current meeting.
+ */
+- (ZoomSDKAudioStatisticsInfo*)getAudioStatisticsInfo;
+
+/**
+ * @brief This method is used to get Video/AS statistics info current meeting.
+ * @param isVideo, get video statistics info set YES, set NO to get the AS statistics info.
+ */
+- (ZoomSDKVideoASStatisticsInfo*)getVideoASStatisticsInfo:(BOOL)isVideo;
+@end
 
 @interface ZoomSDKSettingService : NSObject
 {
@@ -141,6 +273,7 @@
     ZoomSDKVideoSetting* _videoSetting;
     ZoomSDKRecordSetting* _recordSetting;
     ZoomSDKGeneralSetting* _generalSetting;
+    ZoomSDKStatisticsSetting* _statisticsSetting;
 }
 /**
  * @brief This method is used to get auido setting object
@@ -162,6 +295,10 @@
  */
 -(ZoomSDKGeneralSetting*)getGeneralSetting;
 
+/**
+ * @brief This method is used to get general setting object
+ */
+-(ZoomSDKStatisticsSetting*)getStatisticsSetting;
 
 @end
 

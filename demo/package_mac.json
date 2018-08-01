@@ -1,0 +1,31 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "main_mac.js",
+  "scripts": {
+    "start": "./node_modules/.bin/electron .",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "packager": "electron-packager ./ zoomsdkapp --platform=darwin --arch=x64 --out ./OutApp --electron-version=2.0.2 --overwrite --icon=./app.icns",
+    "postinstall": "mkdir -p ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && cp -Rf ../ZoomSDK/ ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && cp -Rf ../ZoomSDK/ ./node_modules/ZoomSDK/ && cp -rf ./node_modules/lib ../demo/ && cp -Rf /usr/lib/libobjc.A.dylib ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && npm rebuild --runtime=electron --target=2.0.2 --disturl=https://atom.io/download/atom-shell"
+  },
+  "author": "",
+  "license": "ISC",
+  "gypfile": true,
+  "devDependencies": {
+    "electron-packager": "^12.0.0",
+    "electron-rebuild": "^1.5.10",
+    "electron": "^2.0.2",
+    "lib": "file:../lib",
+    "nodobjc": "^2.1.0",
+    "ZoomSDK": "file:../ZoomSDK"
+  },
+  "dependencies": {
+    "electron": "^2.0.2",
+    "electron-rebuild": "^1.5.10",
+    "lib": "file:../lib",
+    "nodobjc": "^2.1.0",
+    "electron-packager": "^12.0.0",
+    "ZoomSDK": "file:../ZoomSDK"
+  }
+}

@@ -7,7 +7,6 @@
 //
 
 #import "ZoomSDKErrors.h"
-#import "ZoomSDKBuildType.h"
 
 @interface ZoomSDKAnnotationController :NSObject
 - (BOOL)isAnnotationDisable;
@@ -157,7 +156,6 @@
 
 /**
  * @brief This method is used to get annotation controller.
- * @param type, support dual screen mode, modify the selected screen.
  * @return A annotataion controller interface when function call successful, or return nil when failed.
  */
 - (ZoomSDKAnnotationController*)getAnnotationController;

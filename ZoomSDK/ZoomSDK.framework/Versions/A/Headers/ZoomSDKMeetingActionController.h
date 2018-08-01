@@ -40,6 +40,7 @@
 {
     unsigned int _userID;
 }
+- (BOOL)isMySelf;
 - (NSString*)getUserName;
 - (NSString*)getEmail;
 - (unsigned int)getUserID;
@@ -48,7 +49,7 @@
 - (BOOL)isAudioMuted;
 - (UserRole)getUserRole;
 - (BOOL)isPurePhoneUser;
-- (BOOL)isMySelf;
+- (BOOL)canBeCoHost;
 @end
 
 @interface ZoomSDKJoinMeetingHelper :NSObject
@@ -119,7 +120,6 @@
 #else
 - (void)onUserJoin:(NSArray*)array;
 #endif
-
 /**
  * @brief Designated for Zoom Meeting user left notify.
  * @param array tell client the left user array.
@@ -130,17 +130,16 @@
 #else
 - (void)onUserLeft:(NSArray*)array;
 #endif
-
 /**
- * @brief Designated for Zoom Meeting notify the specific user info change.
- * @param userID user's identity whose info changed.
+ * @brief Designated for Zoom Meeting notify the host change.
+ * @param userID user's identity who becomes host.
  *
  */
 - (void)onUserInfoUpdate:(unsigned int)userID;
 
 /**
- * @brief Designated for Zoom Meeting notify the host change.
- * @param userID user's identity who becomes host.
+ * @brief Designated for Zoom Meeting notify the specific user info change.
+ * @param userID user's identity whose info changed.
  *
  */
 #ifdef BUILD_FOR_ELECTRON
@@ -167,8 +166,6 @@
 #else
 - (void)onVideoStatusChange:(BOOL)videoOn UserID:(unsigned int)userID;
 #endif
-
-
 /**
  * @brief Designated for Zoom Meeting notify specific user raise hand or lower hand status change.
  * @param raise YES mean specific user raise hand ,No means lower hand.
@@ -210,8 +207,8 @@
  * @param screen, select the specific screen u want to do action with.
  * @return A ZoomSDKError to tell client whether modify meeting successful or not.
  */
-
 - (ZoomSDKError)actionMeetingWithCmd:(ActionMeetingCmd)cmd userID:(unsigned int)userID onScreen:(ScreenType)screen;
+
 /**
  * @brief This method is used to send a chat message.
  * @param content, message content u want to send.
@@ -249,4 +246,23 @@
  * @return A ZoomSDKError to tell client function call successful or not.
  */
 - (ZoomSDKError)changeUserName:(unsigned int)userID newName:(NSString*)name;
+/**
+ * @brief This method is used for participant to claim host by hostkey.
+ * @param hostKey, the host key of the meeting host.
+ * @return A ZoomSDKError to tell client function call successful or not.
+ */
+- (ZoomSDKError)claimHostByKey:(NSString*)hostKey;
+/**
+ * @brief This method is used for host to assign cohost to one participant.
+ * @param userid, the user id of the participant u want to make cohost.
+ * @return A ZoomSDKError to tell client function call successful or not.
+ */
+-(ZoomSDKError)assignCoHost:(unsigned int)userid;
+
+/**
+ * @brief This method is used for host to revoke cohost privilege from a specific participant.
+ * @param userid, the user id of the participant u want to make cohost.
+ * @return A ZoomSDKError to tell client function call successful or not.
+ */
+-(ZoomSDKError)revokeCoHost:(unsigned int)userid;
 @end

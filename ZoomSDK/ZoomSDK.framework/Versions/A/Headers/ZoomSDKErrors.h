@@ -164,18 +164,14 @@ typedef enum{
  */
 typedef enum{
     ZoomSDKError_Success,
-    ZoomSDKError_NoImplement,
+    ZoomSDKError_Failed,
+    ZoomSDKError_Uninit,
+    ZoomSDKError_ServiceFailed,
     ZoomSDKError_WrongUsage,
     ZoomSDKError_InvalidPrameter,
-    ZoomSDKError_ModuleLoadFailed,
-    ZoomSDKError_MemoryFailed,
-    ZoomSDKError_ServiceFailed,
-    ZoomSDKError_Uninit,
-    ZoomSDKError_UnAuthentication,
+    ZoomSDKError_NoPermission,
     ZoomSDKError_NoRecordingInProgress,
-    ZoomSDKError_NoPermission =12,
-    ZoomSDKError_UnKnow = 13,
-    ZoomSDKError_Failed = 14,
+    ZoomSDKError_UnKnow,
 }ZoomSDKError;
 
 /**
@@ -585,3 +581,60 @@ typedef enum
     StatisticWarningType_CPUHigh,
     StatisticWarningType_SystemBusy,
 }StatisticWarningType;
+
+
+typedef enum{
+    ConnectionComponent_None,
+    ConnectionComponent_Share,
+    ConnectionComponent_Video,
+    ConnectionComponent_Audio,
+}ConnectionComponent;
+
+typedef enum{
+    EndMeetingReason_None,
+    EndMeetingReason_KickByHost,
+    EndMeetingReason_EndByHost,
+    EndMeetingReason_JBHTimeOut,
+    EndMeetingReason_NoAttendee,
+    EndMeetingReason_HostStartAnotherMeeting,
+}EndMeetingReason;
+
+typedef enum
+{
+    EncryptType_NO,
+    EncryptType_YES,
+    EncryptType_Auto
+}EncryptType;
+
+typedef enum{
+    SettingConnectionType_Unknow,
+    SettingConnectionType_P2P,
+    SettingConnectionType_Cloud,
+}SettingConnectionType;
+
+typedef enum{
+    SettingNetworkType_Unknow,
+    SettingNetworkType_Wired,
+    SettingNetworkType_WiFi,
+    SettingNetworkType_PPP,
+    SettingNetworkType_3G,
+    SettingNetworkType_Other,
+}SettingNetworkType;
+
+typedef enum {
+    SDKUserType_APIUser,
+    SDKUserType_EmailLogin,
+    SDKUserType_FaceBook,
+    SDKUserType_GoogleOAuth,
+    SDKUserType_SSO,
+    SDKUserType_Unknown,
+}SDKUserType;
+
+typedef enum{
+    LiveStreamStatus_None,
+    LiveStreamStatus_InProgress,
+    LiveStreamStatus_Connecting,
+    LiveStreamStatus_StartFailedTimeout,
+    LiveStreamStatus_StartFailed,
+    LiveStreamStatus_Ended,
+}LiveStreamStatus;
