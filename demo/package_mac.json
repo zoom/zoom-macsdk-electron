@@ -6,8 +6,8 @@
   "scripts": {
     "start": "./node_modules/.bin/electron .",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "packager": "electron-packager ./ zoomsdkapp --platform=darwin --arch=x64 --out ./OutApp --electron-version=2.0.2 --overwrite --icon=./app.icns",
-    "postinstall": "mkdir -p ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && cp -Rf ../ZoomSDK/ ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && cp -Rf ../ZoomSDK/ ./node_modules/ZoomSDK/ && cp -rf ./node_modules/lib ../demo/ && cp -Rf /usr/lib/libobjc.A.dylib ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && npm rebuild --runtime=electron --target=2.0.2 --disturl=https://atom.io/download/atom-shell"
+    "packager": "electron-packager ./ zoomsdkapp --platform=darwin --arch=x64 --out ./OutApp --electron-version=2.0.2 --overwrite --icon=./app.icns && cp -Rf ../Plugins ./OutApp/zoomsdkapp-darwin-x64/zoomsdkapp.app/Contents/",
+    "postinstall": "mkdir -p ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && cp -Rf ../Plugins ./node_modules/electron/dist/Electron.app/Contents/ && cp -Rf ../ZoomSDK/ ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && cp -Rf ../ZoomSDK/ ./node_modules/ZoomSDK/ && cp -rf ./node_modules/lib ../demo/ && cp -Rf /usr/lib/libobjc.A.dylib ./node_modules/electron/dist/Electron.app/Contents/Resources/app/node_modules/ZoomSDK && npm rebuild --runtime=electron --target=2.0.2 --disturl=https://atom.io/download/atom-shell"
   },
   "author": "",
   "license": "ISC",
