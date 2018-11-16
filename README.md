@@ -2,48 +2,20 @@
 
 This is a basic version to support Electron framework on Mac. 
 
-Please use the following steps to get the sample app setup and running.
+Please follow the following steps to setup and run the sample app.
 
-1. Install Brew
+1. Install brew
 
-curl -LsSf http://github.com/mxcl/homebrew/tarball/master | sudo tar xvz -C/usr/local --strip 1
+command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-2. Install npm and Node.js
+2. Install npm and Node.js. Make sure the Node.js version is v8.12.0 (Carbon) or older
 
-brew install node
+3. Get Electron release package and unzip. Rename package_mac.json to package.json in lib folder.
 
-3. Install Electron
+4. Get the released SDK package. Copy ZoomSDK folder to Electron SDK folder at the same level as the demo folder.
 
- i: sudo npm install -g electron --unsafe-perm=true
+5. cd /demo, run "npm install" to install SDK
 
- 	cd /usr/local/lib/node_modules/electron
+6. Run "npm start" to start demo
 
- ii: npm install nodobjc
-
- iii: npm install --save-dev electron-rebuild
-
- iv: ./node_modules/.bin/electron-rebuild
-
- v: npm rebuild --runtime=electron --target=1.7.9 --disturl=https://atom.io/download/atom-shell --build-from-source
-
- To Run it:
-
- 1. Make sure u have installed Electron successfully.
-
- 2. Get Electron release package contains three zip: Demo_*, Lib_*, mac_sdk_* 
- 	
- 	Demo_*:  the Electron demo 
-
-	Lib_*: JS files that make the bridge from JS to ObjectC
-
-	mac_sdk_*:  Zoom Mac SDK ObjectC libs.
-
-3. unzip the three zips above, will show three folders: /demo, /lib, /ZoomSDK
-
-1) copy the node_modules folder located in /usr/local/lib/node_modules/electron/node_modules to /demo
-
-2) copy folder /ZoomSDK to both /node_modules folder
-
-3) copy all libs contained in /ZoomSDK to  /usr/local/lib/node_modules/electron/dist/Electron.app/Content/Frameworks folder
-
-4) cd /demo folder and run command  "electron ."
+7. Run "npm run-script packager" to package app
