@@ -19,3 +19,7 @@ command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
 6. Run "npm start" to start demo
 
 7. Run "npm run-script packager" to package app
+
+## Support
+
+For any issues regarding our SDK, please visit our new Community Support Forum at https://devforum.zoom.us/.
