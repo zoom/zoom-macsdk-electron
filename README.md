@@ -1,4 +1,4 @@
-# ZoomSDKElectron
+# Zoom SDK Electron on Mac OS
 
 This is a basic version to support Electron framework on Mac. 
 
@@ -19,6 +19,10 @@ command: ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/instal
 6. Run "npm start" to start demo
 
 7. Run "npm run-script packager" to package app
+
+## Disclaimer
+
+**Please be aware that all hard-coded variables and constants shown in the documentation and in the demo, such as Zoom Token, Zoom Access, Token, etc., are ONLY FOR DEMO AND TESTING PURPOSES. We STRONGLY DISCOURAGE the way of HARDCODING any Zoom Credentials (username, password, API Keys & secrets, SDK keys & secrets, etc.) or any Personal Identifiable Information (PII) inside your application. WE DON’T MAKE ANY COMMITMENTS ABOUT ANY LOSS CAUSED BY HARD-CODING CREDENTIALS OR SENSITIVE INFORMATION INSIDE YOUR APP WHEN DEVELOPING WITH OUR SDK**.
 
 ## Support
 
