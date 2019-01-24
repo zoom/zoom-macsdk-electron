@@ -20,6 +20,9 @@
 #import "ZoomSDKVideoContainer.h"
 #import "ZoomSDKMeetingRecordController.h"
 #import "ZoomSDKUpgradeAccountHelper.h"
+#import "ZoomSDKWebinarController.h"
+#import "ZoomSDKCloseCaptionController.h"
+
 @interface ZoomSDKSecuritySessionKey : NSObject
 {
     SecuritySessionComponet _component;
@@ -41,11 +44,7 @@
  * @param state tell client meeting state change.
  *
  */
-#ifdef BUILD_FOR_ELECTRON
-- (void)onMeetingStatusChange:(NSNumber*)state meetingError:(NSNumber*)error EndReason:(NSNumber*)reason;
-#else
 - (void)onMeetingStatusChange:(ZoomSDKMeetingStatus)state meetingError:(ZoomSDKMeetingError)error EndReason:(EndMeetingReason)reason;
-#endif
 
 /**
  * @brief Designated for Zoom Meeting wait external session key notify.
@@ -67,6 +66,12 @@
  *
  */
 - (void)onPaymentReminder:(ZoomSDKUpgradeAccountHelper*)upgradeHelper;
+
+/**
+ * @brief Designated for notify the remain time for free meeting.
+ * @param seconds: the remain seconds for this free meeting. seconds is 0 means leass than 1 minute.
+ */
+- (void)onFreeMeetingRemainTime:(unsigned int)seconds;
 @end
 
 /**
@@ -89,6 +94,8 @@
     //customized UI
     ZoomSDKVideoContainer*           _videoContainer;
     ZoomSDKMeetingRecordController*  _recordController;
+    ZoomSDKWebinarController*        _webinarController;
+    ZoomSDKCloseCaptionController*   _closeCaptionController;
 }
 /**
  * The object that acts as the delegate of the receiving meeting events.
@@ -162,6 +169,17 @@
  * @return a ZoomSDKMeetingRecordController object u can use to customized record your meeting.
  */
 - (ZoomSDKMeetingRecordController*)getRecordController;
+/**
+ * @brief get the Zoom SDK webinar controller
+ * @return a ZoomSDKWebinarController object u can use to customized webinar meeting.
+ */
+- (ZoomSDKWebinarController*)getWebinarController;
+
+/**
+ * @brief get the Zoom SDK close caption controller
+ * @return a ZoomSDKCloseCaptionController object u can use to handle close caption in meeting.
+ */
+- (ZoomSDKCloseCaptionController*)getCloseCaptionController;
 /**
  * @brief This method is used to start a Zoom meeting with meeting number.
  * @note  userId\userToken\username is for API user.
@@ -266,8 +284,14 @@
  * @param leaveMeeting, notify leave meeting session or not.
  * @@return A ZoomSDKError to tell client whether set security key successfully or not.
  */
-
 -(ZoomSDKError)setSecuritySessionKey:(NSArray*)keyArray isLeaveMeeting:(BOOL)leaveMeeting;
+
+/**
+ * @brief This method is used to handle zoom web join meeting or start meeting url action.
+ * @param urlAction, the url string from web.
+ * @@return A ZoomSDKError to tell client whether function call successfully or not.
+ */
+- (ZoomSDKError)handleZoomWebUrlAction:(NSString*)urlAction;
 @end
 
 

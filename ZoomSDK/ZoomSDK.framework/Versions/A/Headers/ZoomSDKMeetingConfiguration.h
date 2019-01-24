@@ -3,7 +3,7 @@
 //  ZoomSDK
 //
 //  Created by TOTTI on 8/4/17.
-//  Copyright © 2017 TOTTI. All rights reserved.
+//  Copyright © 2017 zoom.us. All rights reserved.
 //
 #import "ZoomSDKErrors.h"
 @interface ZoomSDKMeetingConfiguration :NSObject
@@ -56,6 +56,8 @@
     BOOL                _disableRenameInMeeting;
     //disable share button origin click action
     BOOL                _disableShareButtonClickOriginAction;
+    //disable meeting toolbar invite button origin click action, default is no
+    BOOL                _disableToolbarInviteButtonClickOriginAction;
     //need prefill webinar Join Info
     BOOL                _needPrefillWebinarJoinInfo;
     //hide leave/end meeting confirm window
@@ -73,8 +75,10 @@
     //enable global shortcuts in confui
     BOOL                _enableGlobalShortcuts;
     BOOL                _disableCustomLiveStreamAction;
-    //free user
+    //diable free user payment Reminder
     BOOL                _disableFreeUserOriginAction;
+    //disable free meeting remain time notify in confui
+    BOOL                _disableFreeMeetingRemainTimeNotify;
 }
 @property(nonatomic, assign)CGDirectDisplayID displayAppID;
 @property(nonatomic, assign)CGDirectDisplayID monitorID;
@@ -98,6 +102,7 @@
 @property(nonatomic, retain)NSString* securityAppName;
 @property(nonatomic, assign)BOOL disableRenameInMeeting;
 @property(nonatomic, assign)BOOL disableShareButtonClickOriginAction;
+@property(nonatomic, assign)BOOL disableToolbarInviteButtonClickOriginAction;
 @property(nonatomic, assign)BOOL needPrefillWebinarJoinInfo;
 @property(nonatomic, assign)BOOL hideLeaveMeetingWindow;
 @property(nonatomic, assign)BOOL disableParticipantButtonClickOriginAction;
@@ -108,6 +113,7 @@
 @property(nonatomic, assign)BOOL enableGlobalShortcuts;
 @property(nonatomic, assign)BOOL disableCustomLiveStreamAction;
 @property(nonatomic, assign)BOOL disableFreeUserOriginAction;
+@property(nonatomic, assign)BOOL disableFreeMeetingRemainTimeNotify;
 
 - (ZoomSDKError)prefillWebinarUserName:(NSString*)userName Email:(NSString*)email;
 - (ZoomSDKError)hideSDKButtons:(BOOL)hide ButtonType:(SDKButton)button;

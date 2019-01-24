@@ -5,7 +5,7 @@ const electron = require('electron');
 
 var ZOOMSDKMOD = require("../lib/zoom_sdk.js")
 var initoptions={
-    path:'../lib/node_modules/zoomsdk/build/Release/',
+    path:'../lib/windows/bin/',
     apicallretcb:apicallresultcb,
     threadsafemode:0,
     ostype:ZOOMSDKMOD.ZOOM_TYPE_OS_TYPE.WIN_OS,

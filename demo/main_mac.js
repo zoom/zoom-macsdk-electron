@@ -261,39 +261,17 @@ function meetinghostchangecb(userid){
 }
 
 function meetingstatuscb(status, errorcode) {
-
-  switch (status)
+  if((status == ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_CONNECTING) || (status == ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_DISCONNECTING) || (status == ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_RECONNECTING))
   {
-    case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_CONNECTING:
-    case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_DISCONNECTING:
-    case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_RECONNECTING:
       showWaitingWindow();
-    break;
-    case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_INMEETING:
-    case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_AUDIO_READY:
+  }
+  else if((status == ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_INMEETING) || (status == ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_AUDIO_READY))
+  {
       showInMeetingWindow();
-    break;
-    case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_FAILED:
-    case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_ENDED:
-    /*
-      if (ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_FAILED == status) {
-        switch (errorcode)
-        {
-          case ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingFailCode.MEETING_FAIL_CONFLOCKED:
-          .....
-          {
-
-          }
-          break;
-          default
-          break;
-        }
-      }
-      */
+  }
+  else if((status == ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_FAILED) || (status == ZOOMSDKMOD.ZOOMMEETINGMOD.ZoomMeetingStatus.MEETING_STATUS_ENDED))
+  {
       showSatrtJoinWindow();
-    break;
-    default:
-    break;
   }
 }
 function start(meetingnum){
@@ -566,6 +544,9 @@ ipcMain.on('asynchronous-message', (event, arg1, arg2, arg3) => {
   }
   else if ('login' == arg1){
     login(arg2,arg3)
+  }
+  else if ('showSatrtJoinWindow' == arg1){
+    showSatrtJoinWindow()
   }
   else if ('start' == arg1){
     start(Number(arg2))

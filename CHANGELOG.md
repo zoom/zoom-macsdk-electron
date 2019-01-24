@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 2019-01-23
+
+* No interface changes for Zoom Electron SDK for MacOS, please refer to [https://github.com/zoom/zoom-sdk-macos/blob/master/CHANGELOG.md](https://github.com/zoom/zoom-sdk-macos/blob/master/CHANGELOG.md) for changes in MacOS SDK.
+
 ## 2018-9-11
 
 * Support Direct share / Outlook plugin integration / Audio Share

@@ -11,11 +11,18 @@
 	function sendlogin(username, psw){
 		ipcRenderer.send('asynchronous-message', 'login', username, psw)
 	}
+	function sendJoin(){
+		ipcRenderer.send('asynchronous-message', 'showSatrtJoinWindow')
+	}
 	function dologin(){
 		var username=document.getElementById("username").value; 
 		var psw=document.getElementById("psw").value; 
 		sendlogin(username, psw)
 	}
+	function switchtoJoinstart(){
+		sendJoin()
+	}
+
 </script>
 
 </head>
@@ -28,6 +35,7 @@
 	<br/>
 	<div align="center"><input type="password" name="psw" placeholder="input password" id="psw"/></div>
 	<br/>
-	<div align="center"><button type="button" onclick="dologin()">Login</button></div>
+	<div align="center"><button type="button" onclick="dologin()">Login</button>    <button type="button" onclick="switchtoJoinstart()">switch to Join</button>
+	</div>
 </body>
 </html>

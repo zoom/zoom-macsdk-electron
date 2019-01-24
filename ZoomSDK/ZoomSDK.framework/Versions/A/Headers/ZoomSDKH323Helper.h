@@ -3,7 +3,7 @@
 //  ZoomSDK
 //
 //  Created by TOTTI on 1/3/17.
-//  Copyright © 2017 TOTTI. All rights reserved.
+//  Copyright © 2017 zoom.us. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -39,7 +39,7 @@
  * @param pairResult tell user when the pair status changed.
  *
  */
-- (void) onPairCodeResult:(H323PairingResult)pairResult;
+- (void) onPairCodeResult:(H323PairingResult)pairResult MeetingNumber:(long long)meetingNum;
 @end
 
 
