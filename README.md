@@ -9,7 +9,7 @@
 ## Getting Started
 
 The following instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
-* For detailed instructions, please refer to our documentation website: [https://marketplace.zoom.us/docs/sdk/electron-support](https://marketplace.zoom.us/docs/sdk/electron-support);
+* For detailed instructions, please refer to our documentation website: [https://marketplace.zoom.us/docs/sdk/hybrid-frameworks/electron-support](https://marketplace.zoom.us/docs/sdk/hybrid-frameworks/electron-support);
 * If you need support or assistance, please visit our [Zoom Developer Community Forum](https://devforum.zoom.us/);
 
 ### Prerequisites
@@ -61,7 +61,7 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 
 ## Documentation
 
-Please visit [[https://marketplace.zoom.us/docs/sdk/electron-support](https://marketplace.zoom.us/docs/sdk/electron-support)] for details of each features and functions.
+Please visit [[https://marketplace.zoom.us/docs/sdk/hybrid-frameworks/electron-support](https://marketplace.zoom.us/docs/sdk/hybrid-frameworks/electron-support)] for details of each features and functions.
 
 ## Versioning
 
