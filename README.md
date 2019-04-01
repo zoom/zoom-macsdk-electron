@@ -45,11 +45,12 @@ Clone or download a copy of our SDK files from GitHub. After you unzipped the fi
 .
 ├── CHANGELOG.md
 ├── LICENSE.md
+├── Plugins
 ├── README.md
-├── bin
-├── h
+├── SDK\ Resources
+├── ZoomSDK
+├── [demo] <- demo app is inside
 ├── lib
-├── [sdk_demo] <-- demo app is inside
 └── version.txt
 ```
 Please refer to the following steps to install and compile:
