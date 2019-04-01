@@ -1,6 +1,21 @@
 # Zoom Electron SDK on MacOS
+<div align="center">
+<img src="https://s3.amazonaws.com/user-content.stoplight.io/8987/1541013063688" width="400px" max-height="400px" style="margin:auto;"/>
+</div>
 
-> Our brand new [Zoom Developer Community Forum](https://devforum.zoom.us/) is now online!!! Check it out! We are here to help! :D
+## Latest SDK Notifications
+1. Our brand new [Zoom Developer Community Forum](https://devforum.zoom.us/) is now online!!! Check it out! We are here to help! :D
+
+## Full Documentation && Community Support
+You can find the full Zoom Electron SDK documentation and the community support forum here:
+<div align="center">
+   <a target="_blank" href="https://marketplace.zoom.us/docs/sdk/hybrid-frameworks/electron" style="text-decoration:none">
+   <img src="https://s3-us-west-1.amazonaws.com/sdk.zoom.us/Doc-button.png" width="350px" max-height="350px" style="margin:1vh 1vw;"/>
+   </a>
+   <a target="_blank" href="https://devforum.zoom.us/c/desktop-sdk" style="text-decoration:none">
+   <img src="https://s3-us-west-1.amazonaws.com/sdk.zoom.us/Forum-button.png" width="350px" max-height="350px" style="margin:1vh 1vw;"/>
+   </a>
+</div>
 
 ## Disclaimer
 
@@ -46,9 +61,9 @@ command:
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-2. Install npm and Node.js. Make sure the Node.js version is v8.12.0 (Carbon) or older
+2. Install npm and Node.js. Make sure the Node.js version is **v8.12.0 (Carbon)**
 
-3. Get Electron release package and unzip. Rename package_mac.json to package.json in lib folder.
+3. Install **Electron 2.0.7**. Rename package_mac.json to package.json in lib folder.
 
 4. Get the released SDK package. Copy ZoomSDK folder to Electron SDK folder at the same level as the demo folder.
 
@@ -74,7 +89,7 @@ Please refer to our [CHANGELOG](https://github.com/zoom/zoom-macsdk-electron/blo
 ## Frequently Asked Questions (FAQ)
 
 * :one: `Error: Module version mismatch. Expected 50, got 57.at Error (native)`:
-  * Our Electron SDK requires Node.js version 8.12.0 and if you have higher version, you will get this error message. Using Node.js 8.12.0 will resolve this problem.
+  * Our Electron SDK requires Node.js version **8.12.0** and if you have higher version, you will get this error message. Using Node.js **8.12.0** will resolve this problem.
 * Not finding what you want? We are here to help! Please visit our [Zoom Developer Community Forum](https://devforum.zoom.us/) for further assistance.
 
 ## Support
