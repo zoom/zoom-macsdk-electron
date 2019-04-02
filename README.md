@@ -62,7 +62,7 @@ command:
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-2. Install npm and Node.js. Make sure the Node.js version is **v8.12.0 (Carbon)**
+2. Install npm and Node.js. Please make sure the Node.js version is **v8.15.1 or earlier versions**
 
 3. Install **Electron 2.0.7**. Rename package_mac.json to package.json in lib folder.
 
